@@ -1,31 +1,34 @@
 import matplotlib.pyplot as plt
 import numpy as np 
+import pandas as pd
 
 uniform_load = 100000 # N/m
-length = 5 # m
+# length = 5 # m
 YM = 200e9 # Pa (Young's Modulus)
 SMoA = 1e-4 # m^4 (Second Moment of Area)
-y = 0.1 # m (Distance from the neutral axis to the outermost fiber)
+# y = 0.1 # m (Distance from the neutral axis to the outermost fiber)
 material_yield_strength = 250e6 # Pa (example yield strength for steel)
 
+# Read the spreadsheet data
+df = pd.read_csv('spreadsheet.csv')  # replace with your spreadsheet file path
+
+# Calculate the second moment of area for each beam
+df['SMoA_Ibeam'] = df.apply(lambda row: Ibeam_second_moment_of_area(row['height'], row['base'], row['thickness']), axis=1)
 
 # Second Moment of Area of I-Beam cross section
 def Ibeam_second_moment_of_area(height, base, thickness):
     SMoA_Ibeam = ((1/6)*(height**3)*thickness) * (1 + 3*(base/height))
     return SMoA_Ibeam
 
-# Second Moment of Area of hollow square cross section
-def HSS_second_moment_of_area(height, base, thickness):
-    SMoA_HSS = ((1/6)*(height**3)*thickness) * (1 + 3*(base/height))
-    return SMoA_HSS
+# # Second Moment of Area of hollow square cross section
+# def HSS_second_moment_of_area(height, base, thickness):
+#     SMoA_HSS = ((1/6)*(height**3)*thickness) * (1 + 3*(base/height))
+#     return SMoA_HSS
 
-# Second Moment of Area of Tee-bar cross section
-def Teebar_second_moment_of_area(height, base, thickness):
-    SMoA_Teebar = ((1/6)*thickness) * ((height**3) + 4*(base*(thickness**2)))
-    return SMoA_Teebar
-
-
-
+# # Second Moment of Area of Tee-bar cross section
+# def Teebar_second_moment_of_area(height, base, thickness):
+#     SMoA_Teebar = ((1/6)*thickness) * ((height**3) + 4*(base*(thickness**2)))
+#     return SMoA_Teebar
 
 def beam_analysis(uniform_load, length, YM, SMoA, y, material_yield_strength):
     # Determine the maximum deflection of the beam
