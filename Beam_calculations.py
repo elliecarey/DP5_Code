@@ -15,9 +15,9 @@ def Ibeam_second_moment_of_area(height, base, thickness):
     return SMoA_Ibeam
 
 # Second Moment of Area of hollow square cross section
-def Ibeam_second_moment_of_area(height, base, thickness):
-    SMoA_Ibeam = ((1/6)*(height**3)*thickness) * (1 + 3*(base/height))
-    return SMoA_Ibeam
+def HSS_second_moment_of_area(height, base, thickness):
+    SMoA_HSS = ((1/6)*(height**3)*thickness) * (1 + 3*(base/height))
+    return SMoA_HSS
 
 
 
