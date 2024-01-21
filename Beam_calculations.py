@@ -19,6 +19,12 @@ def HSS_second_moment_of_area(height, base, thickness):
     SMoA_HSS = ((1/6)*(height**3)*thickness) * (1 + 3*(base/height))
     return SMoA_HSS
 
+# Second Moment of Area of Tee-bar cross section
+def Teebar_second_moment_of_area(height, base, thickness):
+    SMoA_Teebar = ((1/6)*thickness) * ((height**3) + 4*(base*(thickness**2)))
+    return SMoA_Teebar
+
+
 
 
 def beam_analysis(uniform_load, length, YM, SMoA, y, material_yield_strength):
